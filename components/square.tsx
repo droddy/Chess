@@ -26,11 +26,23 @@ export const Square: FunctionComponent<props> = (props: props) => {
         }
         setLegal(true)
     }, [props.pieceHeld])
+    
+    const getClassNameString = (color: string, pieceHeld: boolean, isLegal: boolean) => {
+        const _clickable = 'clickable';
+        const _illegal = 'illegal';
+        const _square = 'square';
+
+        return `${_square} ${color} ${pieceHeld 
+            ? isLegal 
+                ? _clickable 
+                : _illegal 
+            : ''}`
+    }
  
     return (
         <div>
             <div
-                className={`square ${props.color} ${!props.pieceHeld ? '' : (legal ? 'clickable' : 'illegal')}`}
+                className={`${getClassNameString(props.color, props.pieceHeld, legal)}`}
                 onClick={() => {
                     if(!props.pieceHeld) return
                     props.setPieceClicked(false)
